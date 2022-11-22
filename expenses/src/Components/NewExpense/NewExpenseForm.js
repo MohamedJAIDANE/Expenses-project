@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState , useRef } from "react";
 import "./NewExpenseForm.css";
 
 function NewExpenseForm(props) {
   const [entredTitle, setEntredTitle] = useState("");
   const [entredPrice, setEntredPrice] = useState("");
   const [entredDate, setEntredDate] = useState("");
+  const titleRef = useRef()
   // const [userInput, setUserInput] = useState({
   //   entredTitle: "",
   //   entredPrice: "",
@@ -32,6 +33,7 @@ function NewExpenseForm(props) {
     // });
   };
   const submitHandler = (event) => {
+    console.log(titleRef)
     event.preventDefault();
     const expenseData = {
       price: entredPrice,
@@ -40,6 +42,7 @@ function NewExpenseForm(props) {
     };
     props.onGetNewExpenseData(expenseData);
     setEntredDate("");
+    titleRef.current.value='';
     setEntredPrice("");
     setEntredTitle("");
   };
@@ -54,8 +57,9 @@ function NewExpenseForm(props) {
           <input
             type="text"
             placeholder="Title"
-            onChange={titleChangeHandler}
-            value={entredTitle}
+/*             onChange={titleChangeHandler}
+            value={entredTitle} */
+            ref={titleRef}
           />
         </div>
         <div className="new-expense__control">
