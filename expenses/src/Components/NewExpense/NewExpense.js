@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NewExpense.css";
 import NewExpenseForm from "./NewExpenseForm";
 
 function NewExpense(props) {
+  const [isOpen, setIsOpen] = useState(false);
+  const openFormHandler = () => {
+    setIsOpen(!isOpen);
+  };
   const getNewExpenseData = (data) => {
     const newExpense = {
       ...data,
@@ -12,7 +16,13 @@ function NewExpense(props) {
   };
   return (
     <div className="new-expense">
-      <NewExpenseForm onGetNewExpenseData={getNewExpenseData} />
+      {isOpen && (
+        <NewExpenseForm
+          onGetNewExpenseData={getNewExpenseData}
+          close={openFormHandler}
+        />
+      )}
+      {!isOpen && <button onClick={openFormHandler}>Add New Expense</button>}
     </div>
   );
 }
